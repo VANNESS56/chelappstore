@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Sparkles, Github, Twitter, Linkedin, Instagram, Mail, Heart } from 'lucide-react';
 import Link from 'next/link';
 
@@ -38,13 +37,7 @@ export default function Footer() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Newsletter Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="card bg-gradient-to-br from-primary to-accent p-8 sm:p-12 mb-16 text-center overflow-hidden relative"
-                >
+                <div className="card bg-gradient-to-br from-primary to-accent p-8 sm:p-12 mb-16 text-center overflow-hidden relative animate-fade-in">
                     {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,white_1px,transparent_1px)] bg-[size:20px_20px]" />
@@ -64,17 +57,13 @@ export default function Footer() {
                                 placeholder="Masukkan email kamu"
                                 className="flex-1 px-5 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
                             />
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="px-6 py-3 bg-white text-primary font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center justify-center gap-2"
-                            >
+                            <button className="px-6 py-3 bg-white text-primary font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center justify-center gap-2">
                                 <Mail className="w-4 h-4" />
                                 Berlangganan
-                            </motion.button>
+                            </button>
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Main Footer Content */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
@@ -94,16 +83,14 @@ export default function Footer() {
                         {/* Social Links */}
                         <div className="flex items-center gap-3">
                             {socialLinks.map((social) => (
-                                <motion.a
+                                <a
                                     key={social.name}
                                     href={social.href}
-                                    whileHover={{ scale: 1.1, y: -2 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    className="w-10 h-10 bg-surface hover:bg-primary/10 border border-border-light hover:border-primary/30 rounded-xl flex items-center justify-center text-text-secondary hover:text-primary transition-all duration-300"
+                                    className="w-10 h-10 bg-surface hover:bg-primary/10 border border-border-light hover:border-primary/30 rounded-xl flex items-center justify-center text-text-secondary hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
                                     aria-label={social.name}
                                 >
                                     <social.icon className="w-5 h-5" />
-                                </motion.a>
+                                </a>
                             ))}
                         </div>
                     </div>

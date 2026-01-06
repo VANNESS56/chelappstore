@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Star, ShoppingCart, Loader2, RefreshCw } from 'lucide-react';
 import { useProducts } from '../context/ProductContext';
 
@@ -13,25 +12,6 @@ const formatRupiah = (price: number) => {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(price);
-};
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-        },
-    },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: 'easeOut' },
-    },
 };
 
 export default function ProductGrid() {
@@ -52,13 +32,7 @@ export default function ProductGrid() {
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
+                <div className="text-center mb-16 animate-fade-in">
                     <span className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">
                         Aplikasi Unggulan
                     </span>
@@ -69,7 +43,7 @@ export default function ProductGrid() {
                         Aplikasi pilihan yang dirancang untuk meningkatkan produktivitas dan kreativitasmu.
                         Setiap aplikasi dikurasi dengan cermat untuk kualitas dan performa terbaik.
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Loading State */}
                 {loading && (
@@ -84,15 +58,13 @@ export default function ProductGrid() {
                     <div className="flex flex-col items-center justify-center py-20">
                         <div className="text-center">
                             <p className="text-red-500 mb-4">{error}</p>
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                            <button
                                 onClick={refreshProducts}
                                 className="btn-primary inline-flex items-center gap-2"
                             >
                                 <RefreshCw className="w-4 h-4" />
                                 Coba Lagi
-                            </motion.button>
+                            </button>
                         </div>
                     </div>
                 )}
@@ -109,18 +81,12 @@ export default function ProductGrid() {
 
                 {/* Product Grid */}
                 {!loading && !error && products.length > 0 && (
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: '-100px' }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                    >
-                        {products.map((product) => (
-                            <motion.div
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {products.map((product, index) => (
+                            <div
                                 key={product.id}
-                                variants={itemVariants}
-                                className="group card card-hover relative overflow-hidden"
+                                className="group card card-hover relative overflow-hidden animate-fade-in"
+                                style={{ animationDelay: `${index * 0.1}s` }}
                             >
                                 {/* Badge */}
                                 {product.badge && (
@@ -172,38 +138,26 @@ export default function ProductGrid() {
                                             </span>
                                         )}
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
+                                    <button
                                         onClick={() => handleBuy(product.name, product.price)}
-                                        className="px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/25"
+                                        className="px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/25 hover:scale-105 active:scale-95"
                                     >
                                         <ShoppingCart className="w-4 h-4" />
                                         <span className="font-medium text-sm">Beli</span>
-                                    </motion.button>
+                                    </button>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* View All Button */}
                 {!loading && !error && products.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="text-center mt-12"
-                    >
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="btn-secondary"
-                        >
+                    <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                        <button className="btn-secondary">
                             Lihat Semua Aplikasi
-                        </motion.button>
-                    </motion.div>
+                        </button>
+                    </div>
                 )}
             </div>
         </section>
